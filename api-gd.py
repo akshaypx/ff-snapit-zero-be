@@ -9,7 +9,7 @@ from io import BytesIO
 from PIL import Image
 import random
 import torch
-from transformers import AutoProcessor, AutoModelForZeroShotObjectDetection
+from transformers import GroundingDinoProcessor, GroundingDinoForObjectDetection
 
 app = FastAPI()
 
@@ -25,8 +25,8 @@ app.add_middleware(
 # Load Grounding DINO model and processor once
 model_id = "IDEA-Research/grounding-dino-base"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-processor = AutoProcessor.from_pretrained(model_id)
-model = AutoModelForZeroShotObjectDetection.from_pretrained(model_id).to(device)
+processor = GroundingDinoProcessor.from_pretrained(model_id)
+model = GroundingDinoForObjectDetection.from_pretrained(model_id).to(device)
 
 # Define object queries
 DETECTION_TEXTS = [
